@@ -22,7 +22,7 @@ func main() {
 	c := calcpb.NewCalculatorServiceClient(cc)
 
 	// Sum function
-	Sum(c)
+	// Sum(c)
 
 	// Prime Number
 	// PrimeNumber(c)
@@ -31,19 +31,19 @@ func main() {
 	// ComputeAverage(c)
 
 	// Find Max Number
-	// FindMaxNumber(c)
+	FindMaxNumber(c)
 }
 
 func Sum(c calcpb.CalculatorServiceClient) {
 	fmt.Println("Starting sending two numbers for Sum")
-	req := calcpb.CalculatorRequest{
-		Sum: &calcpb.Calculator{
-			a: 4,
-			b: 5,
+	req := calcpb.SumRequest{
+		S: &calcpb.Sum{
+			A: 4,
+			B: 5,
 		},
 	}
 
-	resp, err := c.Calculator(context.Background(), &req)
+	resp, err := c.Sum(context.Background(), &req)
 	if err != nil {
 		log.Fatalf("error while calling sum: %v", err)
 	}
@@ -195,7 +195,7 @@ func FindMaxNumber(c calcpb.CalculatorServiceClient) {
 
 	go func(requests []*calcpb.FindmaxNumberRequest) {
 		for _, req := range requests {
-			fmt.Println("\n Sending Request... : ", req.Calculator)
+			fmt.Println("\n Sending Request... : ", req.P)
 			err := stream.Send(req)
 			if err != nil {
 				log.Fatalf("error while sending request to FindMaxNUmber service: %v", err)
