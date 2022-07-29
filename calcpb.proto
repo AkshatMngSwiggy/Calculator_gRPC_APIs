@@ -34,7 +34,7 @@ message ComputeAverageRequest{
 }
 
 message ComputeAverageResponse{
-    int64 result = 1;
+    double result = 1;
 }
 
 message FindmaxNumberRequest{
