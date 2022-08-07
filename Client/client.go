@@ -132,7 +132,6 @@ func ComputeAverage(c calcpb.CalculatorServiceClient) {
 
 func FindMaxNumber(c calcpb.CalculatorServiceClient) {
 	fmt.Println("Finding the Max number over the incoming stream of numbers...")
-
 	requests := []*calcpb.FindmaxNumberRequest{
 		&calcpb.FindmaxNumberRequest{
 			P: &calcpb.Number{
@@ -190,9 +189,7 @@ func FindMaxNumber(c calcpb.CalculatorServiceClient) {
 	if err != nil {
 		log.Fatalf("error occured while performing client side streaming: %v", err)
 	}
-
 	waitchan := make(chan struct{})
-
 	go func(requests []*calcpb.FindmaxNumberRequest) {
 		for _, req := range requests {
 			fmt.Println("\n Sending Request... : ", req.P)
@@ -204,7 +201,6 @@ func FindMaxNumber(c calcpb.CalculatorServiceClient) {
 		}
 		stream.CloseSend()
 	}(requests)
-
 	go func() {
 		for {
 			resp, err := stream.Recv()
@@ -218,6 +214,5 @@ func FindMaxNumber(c calcpb.CalculatorServiceClient) {
 			fmt.Printf("\n Max Element till now in the Stream: %v", resp.GetResult())
 		}
 	}()
-
 	<-waitchan
 }
